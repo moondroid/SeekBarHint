@@ -19,8 +19,11 @@
     <TextView
         android:id="@+id/text"
         android:text="XXX"
-        android:background="@android:color/black"
-        android:padding="8dp"
+        android:background="@drawable/a9p_09_11_00020"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:textColor="@android:color/white"
         android:gravity="center"
         android:layout_width="48dp"
