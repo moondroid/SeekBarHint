@@ -12,7 +12,8 @@ import android.widget.SeekBar;
 public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListener {
 
     private View mHintView;
-    private OnSeekBarChangeListener mListener;
+    private OnSeekBarChangeListener mInternalListener;
+    private OnSeekBarChangeListener mExternalListener;
 
     public SeekBarHint (Context context) {
         super(context);
@@ -30,7 +31,8 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
     }
 
     private void init(){
-        this.setOnSeekBarChangeListener(this);
+
+        setOnSeekBarChangeListener(this);
 
         if (mHintView!=null){
             initHintView();
@@ -48,10 +50,15 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
         initHintView();
     }
 
-//    @Override
-//    public void setOnSeekBarChangeListener(OnSeekBarChangeListener l) {
-//        mListener = l;
-//    }
+    @Override
+    public void setOnSeekBarChangeListener(OnSeekBarChangeListener l) {
+        if (mInternalListener==null){
+            mInternalListener = l;
+            super.setOnSeekBarChangeListener(l);
+        }else {
+            mExternalListener = l;
+        }
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -79,8 +86,8 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
         //mHintView.setText(String.valueOf(progress));
-        if(mListener!=null){
-            mListener.onProgressChanged(seekBar, progress, b);
+        if(mExternalListener !=null){
+            mExternalListener.onProgressChanged(seekBar, progress, b);
         }
 
         mHintView.setX(getXPosition(seekBar));
@@ -88,8 +95,8 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-        if(mListener!=null){
-            mListener.onStartTrackingTouch(seekBar);
+        if(mExternalListener !=null){
+            mExternalListener.onStartTrackingTouch(seekBar);
         }
         Animation fadeAnimation = new AlphaAnimation(0.0f, 1.0f);
         fadeAnimation.setFillBefore(true);
@@ -101,8 +108,8 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        if(mListener!=null){
-            mListener.onStopTrackingTouch(seekBar);
+        if(mExternalListener !=null){
+            mExternalListener.onStopTrackingTouch(seekBar);
         }
         Animation fadeAnimation = new AlphaAnimation(1.0f, 0.0f);
         fadeAnimation.setFillBefore(true);

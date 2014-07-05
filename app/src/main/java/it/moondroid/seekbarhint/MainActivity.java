@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import it.moondroid.seekbarhint.R;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements SeekBar.OnSeekBarChangeListener {
 
     private TextView text;
 
@@ -26,22 +26,22 @@ public class MainActivity extends Activity {
         text.setText(String.valueOf(seekBar.getProgress()));
 
         seekBar.setHintView(text);
-//        seekBar.setOnSeekBarChangeListener(this);
+        seekBar.setOnSeekBarChangeListener(this);
     }
 
 
-//    @Override
-//    public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
-//        text.setText(String.valueOf(progress));
-//    }
-//
-//    @Override
-//    public void onStartTrackingTouch(SeekBar seekBar) {
-//
-//    }
-//
-//    @Override
-//    public void onStopTrackingTouch(SeekBar seekBar) {
-//
-//    }
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+        text.setText(String.valueOf(progress));
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
 }
