@@ -15,6 +15,12 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
     private OnSeekBarChangeListener mInternalListener;
     private OnSeekBarChangeListener mExternalListener;
 
+    private OnSeekBarHintProgressChangeListener mProgressChangeListener;
+
+    public interface OnSeekBarHintProgressChangeListener {
+        public void onProgressChanged(SeekBarHint seekBarHint, int progress);
+    }
+
     public SeekBarHint (Context context) {
         super(context);
         init();
@@ -40,7 +46,10 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
     }
 
     private void initHintView(){
-        //mHintView.setText(String.valueOf(getProgress()));
+        if (mProgressChangeListener!=null){
+            mProgressChangeListener.onProgressChanged(this, getProgress());
+        }
+
         mHintView.setX(getXPosition(this));
         mHintView.setVisibility(View.GONE);
     }
@@ -58,6 +67,10 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
         }else {
             mExternalListener = l;
         }
+    }
+
+    public void setOnProgressChangeListener(OnSeekBarHintProgressChangeListener l){
+        mProgressChangeListener = l;
     }
 
     @Override
@@ -85,7 +98,10 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
-        //mHintView.setText(String.valueOf(progress));
+        if (mProgressChangeListener!=null){
+            mProgressChangeListener.onProgressChanged(this, getProgress());
+        }
+
         if(mExternalListener !=null){
             mExternalListener.onProgressChanged(seekBar, progress, b);
         }
