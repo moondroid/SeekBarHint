@@ -2,6 +2,7 @@ package it.moondroid.seekbarhint;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import it.moondroid.seekbarhint.library.SeekBarHint;
@@ -20,7 +21,9 @@ public class MainActivity extends Activity implements SeekBarHint.OnSeekBarHintP
         text = (TextView) findViewById(R.id.text);
         text.setText(String.valueOf(seekBar.getProgress()));
 
-        seekBar.setHintView(text);
+        LinearLayout layout = (LinearLayout)findViewById(R.id.layout);
+
+        seekBar.setHintView(layout);
         seekBar.setOnProgressChangeListener(this);
     }
 

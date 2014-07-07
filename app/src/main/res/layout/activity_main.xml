@@ -18,20 +18,31 @@
         myapp:fadeDuration="600"/>
 
 
-    <TextView
-        android:id="@+id/text"
-        android:text="XXX"
+    <LinearLayout
+        android:id="@+id/layout"
+        android:orientation="vertical"
         android:background="@drawable/a9p_09_11_00020"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:textColor="@android:color/white"
-        android:gravity="center"
-        android:layout_width="48dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/seekbar"
-        />
+        android:layout_above="@id/seekbar">
+
+        <TextView
+            android:id="@+id/text"
+            android:text="XXX"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+
+            />
+
+        </LinearLayout>
+
+
 
 
 </RelativeLayout>
