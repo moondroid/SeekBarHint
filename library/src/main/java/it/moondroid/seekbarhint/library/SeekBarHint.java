@@ -2,7 +2,9 @@ package it.moondroid.seekbarhint.library;
 
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -10,6 +12,9 @@ import android.view.animation.Animation;
 import android.widget.SeekBar;
 
 public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListener {
+
+    private static final int DEFAULT_FADE_DURATION = 500;
+    private int mFadeDuration;
 
     private View mHintView;
     private OnSeekBarChangeListener mInternalListener;
@@ -23,26 +28,29 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
 
     public SeekBarHint (Context context) {
         super(context);
-        init();
+        init(context, null);
     }
 
     public SeekBarHint (Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init();
+        init(context, attrs);
     }
 
     public SeekBarHint (Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context, attrs);
     }
 
-    private void init(){
+    private void init(Context context, AttributeSet attrs){
 
         setOnSeekBarChangeListener(this);
 
         if (mHintView!=null){
             initHintView();
         }
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SeekBarHint);
+        mFadeDuration = a.getInt(R.styleable.SeekBarHint_fadeDuration, DEFAULT_FADE_DURATION);
     }
 
     private void initHintView(){
@@ -117,7 +125,7 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
         Animation fadeAnimation = new AlphaAnimation(0.0f, 1.0f);
         fadeAnimation.setFillBefore(true);
         fadeAnimation.setFillAfter(true);
-        fadeAnimation.setDuration(500);
+        fadeAnimation.setDuration(mFadeDuration);
         mHintView.startAnimation(fadeAnimation);
         mHintView.setVisibility(View.VISIBLE);
     }
@@ -130,7 +138,7 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
         Animation fadeAnimation = new AlphaAnimation(1.0f, 0.0f);
         fadeAnimation.setFillBefore(true);
         fadeAnimation.setFillAfter(true);
-        fadeAnimation.setDuration(500);
+        fadeAnimation.setDuration(mFadeDuration);
         mHintView.startAnimation(fadeAnimation);
         mHintView.setVisibility(View.GONE);
     }

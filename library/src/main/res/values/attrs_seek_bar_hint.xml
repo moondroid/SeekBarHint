@@ -1,0 +1,7 @@
+<resources>
+    <declare-styleable name="SeekBarHint">
+
+        <attr name="fadeDuration" format="integer" />
+
+    </declare-styleable>
+</resources>
