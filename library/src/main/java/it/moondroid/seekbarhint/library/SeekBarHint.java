@@ -1,4 +1,4 @@
-package it.moondroid.seekbarhint;
+package it.moondroid.seekbarhint.library;
 
 
 import android.content.Context;

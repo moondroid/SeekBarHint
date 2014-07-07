@@ -1,15 +1,10 @@
 package it.moondroid.seekbarhint;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
-import it.moondroid.seekbarhint.R;
+import it.moondroid.seekbarhint.library.SeekBarHint;
 
 public class MainActivity extends Activity implements SeekBarHint.OnSeekBarHintProgressChangeListener {
 
