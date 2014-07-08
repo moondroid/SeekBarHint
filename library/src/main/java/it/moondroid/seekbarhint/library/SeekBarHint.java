@@ -5,10 +5,15 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.SeekBar;
 
 public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListener {
@@ -51,7 +56,10 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SeekBarHint);
         mFadeDuration = a.getInt(R.styleable.SeekBarHint_fadeDuration, DEFAULT_FADE_DURATION);
+
     }
+
+
 
     private void initHintView(){
         if (mProgressChangeListener!=null){
@@ -60,11 +68,20 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
 
         mHintView.setX(getXPosition(this));
         mHintView.setVisibility(View.GONE);
+
+        if(mHintView.getBackground()==null){
+//        float radius = 10.0f;
+//        ShapeDrawable sd = new ShapeDrawable(new RoundRectShape(new float[] { radius, radius, radius, radius, radius, radius, radius, radius }, null, null));
+//        sd.getPaint().setColor(Color.BLACK);
+            mHintView.setBackgroundResource(R.drawable.hint_drawable);
+        }
+
     }
 
     public void setHintView(View view){
         mHintView = view;
         initHintView();
+
     }
 
     @Override
@@ -122,6 +139,7 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
         if(mExternalListener !=null){
             mExternalListener.onStartTrackingTouch(seekBar);
         }
+        mHintView.setX(getXPosition(seekBar));
         Animation fadeAnimation = new AlphaAnimation(0.0f, 1.0f);
         fadeAnimation.setFillBefore(true);
         fadeAnimation.setFillAfter(true);
@@ -135,6 +153,7 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
         if(mExternalListener !=null){
             mExternalListener.onStopTrackingTouch(seekBar);
         }
+        mHintView.setX(getXPosition(seekBar));
         Animation fadeAnimation = new AlphaAnimation(1.0f, 0.0f);
         fadeAnimation.setFillBefore(true);
         fadeAnimation.setFillAfter(true);
