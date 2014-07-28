@@ -3,5 +3,7 @@
 
     <string name="app_name">SeekBarHint</string>
     <string name="action_settings">Settings</string>
+    <string name="action_follow">Follow</string>
+    <string name="action_fixed">Fixed</string>
 
 </resources>
