@@ -1,7 +1,9 @@
 SeekBarHint
 ===========
 ### Description
-SeekBarHint allows to add a SeekBar widget witch is moved and updated according to the SeekBar position
+SeekBarHint allows to add a SeekBar widget witch is moved and updated according to the SeekBar position.
+
+
 ![Demo](art/seekbarhint_demo.gif)
 
 ### Integration
@@ -32,9 +34,9 @@ SeekBarHint allows to add a SeekBar widget witch is moved and updated according 
 </RelativeLayout>
 ```
 
-+ popupWidth: the width of the popup or WRAP_CONTENT if unspecified
-+ yOffset: distance from top of the seekbar widget
-+ popupStyle: can be ``fixed`` or ``follow``
++ _popupWidth_: the width of the popup or WRAP_CONTENT if unspecified
++ _yOffset_: distance from top of the seekbar widget
++ _popupStyle_: can be ``fixed`` or ``follow``
 
 
 **2)** Optionally customize the displayed text in Java code:
