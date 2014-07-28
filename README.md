@@ -2,9 +2,9 @@ SeekBarHint
 ===========
 ### Description
 SeekBarHint allows to add a SeekBar widget witch is moved and updated according to the SeekBar position
-
+![Demo](art/seekbarhint_demo.gif)
 ### Integration
-
+...
 
 ### License
 
