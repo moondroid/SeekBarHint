@@ -58,7 +58,7 @@ seekBar.setOnProgressChangeListener(new SeekBarHint.OnSeekBarHintProgressChangeL
 ```
 The MIT License (MIT)
 
-Copyright (c) 2014 Oleksandr Melnykov
+Copyright (c) 2014 Marco Granatiero
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
