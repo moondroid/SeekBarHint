@@ -1,5 +1,6 @@
 SeekBarHint
 ===========
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SeekBarHint-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/884)
 ### Description
 SeekBarHint allows to add a SeekBar widget witch is moved and updated according to the SeekBar position.
 
