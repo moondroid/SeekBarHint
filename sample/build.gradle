@@ -1,5 +1,4 @@
-apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -8,6 +7,10 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+
+        applicationId 'com.example.seekbarhint'
+        versionCode 1
+        versionName '1.0'
     }
     buildTypes {
         release {
@@ -17,11 +20,7 @@ android {
     }
 }
 
-repositories {
-    jcenter()
-}
-
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':library')
     compile 'com.android.support:appcompat-v7:22.2.0'
 }

@@ -1,15 +1,14 @@
-package it.moondroid.seekbarhint;
+package com.example.seekbarhint;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import it.moondroid.seekbarhint.library.SeekBarHint;
 
-public class MainActivity extends Activity implements SeekBarHint.OnSeekBarHintProgressChangeListener {
+
+public class MainActivity extends AppCompatActivity implements SeekBarHint.OnSeekBarHintProgressChangeListener {
 
     private SeekBarHint mSeekBar;
 
@@ -32,7 +31,7 @@ public class MainActivity extends Activity implements SeekBarHint.OnSeekBarHintP
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_fixed:
                 mSeekBar.setPopupStyle(SeekBarHint.POPUP_FIXED);
                 return true;
