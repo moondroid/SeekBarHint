@@ -17,6 +17,6 @@
         android:max="1000"
         hint:popupStyle="fixed"
         hint:popupWidth="100dp"
-        hint:yOffset="15dp" />
+        hint:yOffset="50dp" />
 
 </RelativeLayout>
