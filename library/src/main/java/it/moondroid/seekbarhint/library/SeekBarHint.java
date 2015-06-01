@@ -3,13 +3,11 @@ package it.moondroid.seekbarhint.library;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -34,22 +32,22 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
         public String onHintTextChanged(SeekBarHint seekBarHint, int progress);
     }
 
-    public SeekBarHint (Context context) {
+    public SeekBarHint(Context context) {
         super(context);
         init(context, null);
     }
 
-    public SeekBarHint (Context context, AttributeSet attrs, int defStyle) {
+    public SeekBarHint(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs);
     }
 
-    public SeekBarHint (Context context, AttributeSet attrs) {
+    public SeekBarHint(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    private void init(Context context, AttributeSet attrs){
+    private void init(Context context, AttributeSet attrs) {
 
         setOnSeekBarChangeListener(this);
 
@@ -63,25 +61,25 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
         initHintPopup();
     }
 
-    public void setPopupStyle(int style){
+    public void setPopupStyle(int style) {
         mPopupStyle = style;
     }
 
-    public int getPopupStyle(){
+    public int getPopupStyle() {
         return mPopupStyle;
     }
 
-    private void initHintPopup(){
+    private void initHintPopup() {
         String popupText = null;
 
-        if (mProgressChangeListener!=null){
+        if (mProgressChangeListener != null) {
             popupText = mProgressChangeListener.onHintTextChanged(this, getProgress());
         }
 
-        LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View undoView = inflater.inflate(R.layout.popup, null);
-        mPopupTextView = (TextView)undoView.findViewById(R.id.text);
-        mPopupTextView.setText(popupText!=null? popupText : String.valueOf(getProgress()));
+        mPopupTextView = (TextView) undoView.findViewById(R.id.text);
+        mPopupTextView.setText(popupText != null ? popupText : String.valueOf(getProgress()));
 
         mPopup = new PopupWindow(undoView, mPopupWidth, ViewGroup.LayoutParams.WRAP_CONTENT, false);
 
@@ -89,38 +87,38 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
 
     }
 
-    private void showPopup(){
+    private void showPopup() {
 
-        if(mPopupStyle==POPUP_FOLLOW){
-            mPopup.showAtLocation(this, Gravity.LEFT | Gravity.BOTTOM, (int) (this.getX()+(int) getXPosition(this)), (int) (this.getY()+mYLocationOffset+this.getHeight()));
+        if (mPopupStyle == POPUP_FOLLOW) {
+            mPopup.showAtLocation(this, Gravity.LEFT | Gravity.BOTTOM, (int) (this.getX() + (int) getXPosition(this)), (int) (this.getY() + mYLocationOffset + this.getHeight()));
         }
-        if (mPopupStyle==POPUP_FIXED){
-            mPopup.showAtLocation(this, Gravity.CENTER | Gravity.BOTTOM, 0, (int) (this.getY()+mYLocationOffset+this.getHeight()));
+        if (mPopupStyle == POPUP_FIXED) {
+            mPopup.showAtLocation(this, Gravity.CENTER | Gravity.BOTTOM, 0, (int) (this.getY() + mYLocationOffset + this.getHeight()));
         }
     }
 
-    private void hidePopup(){
-        if(mPopup.isShowing()) {
+    private void hidePopup() {
+        if (mPopup.isShowing()) {
             mPopup.dismiss();
         }
     }
 
-    public void setHintView(View view){
+    public void setHintView(View view) {
         //TODO
         //initHintPopup();
     }
 
     @Override
     public void setOnSeekBarChangeListener(OnSeekBarChangeListener l) {
-        if (mInternalListener==null){
+        if (mInternalListener == null) {
             mInternalListener = l;
             super.setOnSeekBarChangeListener(l);
-        }else {
+        } else {
             mExternalListener = l;
         }
     }
 
-    public void setOnProgressChangeListener(OnSeekBarHintProgressChangeListener l){
+    public void setOnProgressChangeListener(OnSeekBarHintProgressChangeListener l) {
         mProgressChangeListener = l;
     }
 
@@ -128,26 +126,26 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
         String popupText = null;
-        if (mProgressChangeListener!=null){
+        if (mProgressChangeListener != null) {
             popupText = mProgressChangeListener.onHintTextChanged(this, getProgress());
         }
 
-        if(mExternalListener !=null){
+        if (mExternalListener != null) {
             mExternalListener.onProgressChanged(seekBar, progress, b);
         }
 
 
-        mPopupTextView.setText(popupText!=null? popupText : String.valueOf(progress));
+        mPopupTextView.setText(popupText != null ? popupText : String.valueOf(progress));
 
-        if(mPopupStyle==POPUP_FOLLOW){
-            mPopup.update((int) (this.getX()+(int) getXPosition(seekBar)), (int) (this.getY()+mYLocationOffset+this.getHeight()), -1, -1);
+        if (mPopupStyle == POPUP_FOLLOW) {
+            mPopup.update((int) (this.getX() + (int) getXPosition(seekBar)), (int) (this.getY() + mYLocationOffset + this.getHeight()), -1, -1);
         }
 
     }
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-        if(mExternalListener !=null){
+        if (mExternalListener != null) {
             mExternalListener.onStartTrackingTouch(seekBar);
         }
 
@@ -156,7 +154,7 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        if(mExternalListener !=null){
+        if (mExternalListener != null) {
             mExternalListener.onStopTrackingTouch(seekBar);
         }
 
@@ -164,14 +162,14 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
     }
 
 
-    private float getXPosition(SeekBar seekBar){
-        float val = (((float)seekBar.getProgress() * (float)(seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax());
+    private float getXPosition(SeekBar seekBar) {
+        float val = (((float) seekBar.getProgress() * (float) (seekBar.getWidth() - 2 * seekBar.getThumbOffset())) / seekBar.getMax());
         float offset = seekBar.getThumbOffset();
 
         int textWidth = mPopupWidth;
-        float textCenter = (textWidth/2.0f);
+        float textCenter = (textWidth / 2.0f);
 
-        float newX = val+offset - textCenter;
+        float newX = val + offset - textCenter;
 
         return newX;
     }

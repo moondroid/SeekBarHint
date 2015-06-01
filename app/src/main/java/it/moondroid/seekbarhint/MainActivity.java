@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import it.moondroid.seekbarhint.library.SeekBarHint;
 
@@ -32,7 +30,7 @@ public class MainActivity extends Activity implements SeekBarHint.OnSeekBarHintP
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_fixed:
                 mSeekBar.setPopupStyle(SeekBarHint.POPUP_FIXED);
                 return true;
