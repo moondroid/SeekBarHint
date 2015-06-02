@@ -1,0 +1,31 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:hint="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MyActivity">
+
+    <it.moondroid.seekbarhint.library.SeekBarHint
+        android:id="@+id/seekbar_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:max="1000"
+        android:rotation="0"
+        hint:popupOffset="4dp" />
+
+    <it.moondroid.seekbarhint.library.SeekBarHint
+        android:id="@+id/seekbar_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:max="1000"
+        android:rotation="90"
+        hint:popupAlwaysShown="true"
+        hint:popupLayout="@layout/custom_seekbar_hint_popup" />
+
+</FrameLayout>
