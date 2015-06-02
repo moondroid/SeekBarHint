@@ -30,6 +30,7 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
     private int mPopupOffset;
     private boolean mPopupAlwaysShown;
     private int mPopupStyle;
+    private int mPopupAnimStyle;
 
     public static final int POPUP_FIXED = 1;
     public static final int POPUP_FOLLOW = 0;
@@ -45,26 +46,26 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
     private SeekBarHintAdapter mHintAdapter;
 
     public SeekBarHint(Context context) {
-        super(context);
-        init(context, null);
-    }
-
-    public SeekBarHint(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        init(context, attrs);
+        this(context, null);
     }
 
     public SeekBarHint(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context, attrs);
+        this(context, attrs, R.attr.seekBarHintStyle);
     }
 
-    private void init(Context context, AttributeSet attrs) {
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SeekBarHint);
+    public SeekBarHint(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(context, attrs, defStyleAttr);
+    }
+
+    private void init(Context context, AttributeSet attrs, int defStyleAttr) {
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SeekBarHint, defStyleAttr, R.style.Widget_SeekBarHint);
+        //
         mPopupLayout = a.getResourceId(R.styleable.SeekBarHint_popupLayout, R.layout.seekbar_hint_popup);
         mPopupWidth = (int) a.getDimension(R.styleable.SeekBarHint_popupWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
         mPopupOffset = (int) a.getDimension(R.styleable.SeekBarHint_popupOffset, 0);
         mPopupStyle = a.getInt(R.styleable.SeekBarHint_popupStyle, POPUP_FOLLOW);
+        mPopupAnimStyle = a.getResourceId(R.styleable.SeekBarHint_popupAnimationStyle, R.style.SeekBarHintPopupAnimation);
         mPopupAlwaysShown = a.getBoolean(R.styleable.SeekBarHint_popupAlwaysShown, false);
         a.recycle();
 
@@ -87,7 +88,7 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
         mPopupTextView.setText(popupText != null ? popupText : String.valueOf(getProgress()));
 
         mPopup = new PopupWindow(mPopupView, mPopupWidth, ViewGroup.LayoutParams.WRAP_CONTENT, false);
-        mPopup.setAnimationStyle(R.style.SeekBarHintPopupAnimation);
+        mPopup.setAnimationStyle(mPopupAnimStyle);
 
         if (mPopupAlwaysShown) showPopupOnPost();
     }
