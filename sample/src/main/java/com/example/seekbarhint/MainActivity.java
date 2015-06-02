@@ -8,23 +8,35 @@ import android.view.MenuItem;
 import it.moondroid.seekbarhint.library.SeekBarHint;
 
 
-public class MainActivity extends AppCompatActivity implements SeekBarHint.OnSeekBarHintProgressChangeListener {
+public class MainActivity extends AppCompatActivity {
 
-    private SeekBarHint mSeekBar;
+    private SeekBarHint mSeekBarH;
+    private SeekBarHint mSeekBarV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSeekBar = (SeekBarHint) findViewById(R.id.seekbar);
+        mSeekBarH = (SeekBarHint) findViewById(R.id.seekbar_horizontal);
+        mSeekBarV = (SeekBarHint) findViewById(R.id.seekbar_vertical);
 
-        mSeekBar.setOnProgressChangeListener(this);
+        mSeekBarH.setHintAdapter(new SeekBarHint.SeekBarHintAdapter() {
+            @Override
+            public String getHint(SeekBarHint seekBarHint, int progress) {
+                return "Horizontal: " + progress;
+            }
+        });
+        mSeekBarV.setHintAdapter(new SeekBarHint.SeekBarHintAdapter() {
+            @Override
+            public String getHint(SeekBarHint seekBarHint, int progress) {
+                return "Vertical: " + progress;
+            }
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -33,20 +45,16 @@ public class MainActivity extends AppCompatActivity implements SeekBarHint.OnSee
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_fixed:
-                mSeekBar.setPopupStyle(SeekBarHint.POPUP_FIXED);
+                mSeekBarH.setPopupStyle(SeekBarHint.POPUP_FIXED);
+                mSeekBarV.setPopupStyle(SeekBarHint.POPUP_FIXED);
                 return true;
 
             case R.id.action_follow:
-                mSeekBar.setPopupStyle(SeekBarHint.POPUP_FOLLOW);
+                mSeekBarH.setPopupStyle(SeekBarHint.POPUP_FOLLOW);
+                mSeekBarV.setPopupStyle(SeekBarHint.POPUP_FOLLOW);
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public String onHintTextChanged(SeekBarHint seekBarHint, int progress) {
-        //return "p: "+progress;
-        return null;
-    }
 }
