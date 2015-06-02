@@ -28,29 +28,38 @@ SeekBarHint allows to add a SeekBar widget witch is moved and updated according 
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:max="1000"
-        hint:popupWidth="100dp"
-        hint:yOffset="15dp"
+        hint:popupOffset="8dp"
         hint:popupStyle="fixed"/>
 
 </RelativeLayout>
 ```
 
-+ _popupWidth_: the width of the popup or WRAP_CONTENT if unspecified
-+ _yOffset_: distance from top of the seekbar widget
-+ _popupStyle_: can be ``fixed`` or ``follow``
+__Available attributes__
++ ``android:rotation``: can be ``0`` or ``90`` for vertical view
++ ``popupLayout``: layout to be used, must include ``android:id/text1 TextView``
++ ``popupStyle``: can be ``fixed`` or ``follow``
++ ``popupAnimationStyle``: in/out animation or fade if unspecified
++ ``popupWidth``: the width of the popup or WRAP_CONTENT if unspecified
++ ``popupOffset``: distance from top/right of the seekbar widget
++ ``popupAlwaysShown``: do not dismiss popup after _onStopTrackingTouch_
 
+**2)** Add theme attribute
+```xml
+<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="seekBarHintStyle">@style/Widget.SeekBarHint</item>
+</style>
+```
 
-**2)** Optionally customize the displayed text in Java code:
+**3)** Optionally customize the displayed text in Java code:
 
 ```java
 SeekBarHint seekBar = (SeekBarHint) findViewById(R.id.seekbar);
-seekBar.setOnProgressChangeListener(this);
-seekBar.setOnProgressChangeListener(new SeekBarHint.OnSeekBarHintProgressChangeListener() {
-            @Override
-            public String onHintTextChanged(SeekBarHint seekBarHint, int progress) {
-                return String.format("Progress: %s", progress);
-            }
-        });
+seekBar.setHintAdapter(new SeekBarHint.SeekBarHintAdapter() {
+    @Override
+    public String getHint(SeekBarHint seekBarHint, int progress) {
+        return "Progress: " + progress;
+    }
+});
 ```
 
 
