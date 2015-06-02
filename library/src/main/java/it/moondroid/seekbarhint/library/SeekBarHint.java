@@ -26,6 +26,7 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
 
     private int mPopupWidth;
     private int mPopupOffset;
+    private boolean mPopupAlwaysShown;
     private int mPopupStyle;
 
     public static final int POPUP_FIXED = 1;
@@ -61,6 +62,7 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
         mPopupWidth = (int) a.getDimension(R.styleable.SeekBarHint_popupWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
         mPopupOffset = (int) a.getDimension(R.styleable.SeekBarHint_popupOffset, 0);
         mPopupStyle = a.getInt(R.styleable.SeekBarHint_popupStyle, POPUP_FOLLOW);
+        mPopupAlwaysShown = a.getBoolean(R.styleable.SeekBarHint_popupAlwaysShown, false);
         a.recycle();
 
         setOnSeekBarChangeListener(this);
@@ -83,6 +85,17 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
 
         mPopup = new PopupWindow(mPopupView, mPopupWidth, ViewGroup.LayoutParams.WRAP_CONTENT, false);
         mPopup.setAnimationStyle(R.style.SeekBarHintPopupAnimation);
+
+        if (mPopupAlwaysShown) showPopupOnPost();
+    }
+
+    private void showPopupOnPost() {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                showPopup();
+            }
+        });
     }
 
     private void showPopup() {
@@ -105,13 +118,27 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
         }
     }
 
-    public void setPopupStyle(@PopupStyle int style) {
-        mPopupStyle = style;
-    }
+    ///////////////////////////////////////////////////////////////////////////
+    // Public api
+    ///////////////////////////////////////////////////////////////////////////
 
     @PopupStyle
     public int getPopupStyle() {
         return mPopupStyle;
+    }
+
+    public void setPopupStyle(@PopupStyle int style) {
+        mPopupStyle = style;
+        if (mPopupAlwaysShown) showPopupOnPost();
+    }
+
+    public boolean isPopupAlwaysShown() {
+        return mPopupAlwaysShown;
+    }
+
+    public void setPopupAlwaysShown(boolean alwaysShown) {
+        this.mPopupAlwaysShown = alwaysShown;
+        if (alwaysShown) showPopupOnPost();
     }
 
     @Override
@@ -148,7 +175,8 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
         if (mExternalListener != null) {
             mExternalListener.onStopTrackingTouch(seekBar);
         }
-        hidePopup();
+
+        if (!mPopupAlwaysShown) hidePopup();
     }
 
     @Override

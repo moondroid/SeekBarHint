@@ -25,6 +25,7 @@
         android:layout_gravity="center"
         android:max="1000"
         android:rotation="90"
+        hint:popupAlwaysShown="true"
         hint:popupStyle="follow" />
 
 </FrameLayout>

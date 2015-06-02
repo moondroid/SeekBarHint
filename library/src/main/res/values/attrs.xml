@@ -6,5 +6,6 @@
             <enum name="follow" value="0"/>
             <enum name="fixed" value="1"/>
         </attr>
+        <attr name="popupAlwaysShown" format="boolean"/>
     </declare-styleable>
 </resources>
