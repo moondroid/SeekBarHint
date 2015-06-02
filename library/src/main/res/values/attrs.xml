@@ -1,5 +1,6 @@
 <resources>
     <declare-styleable name="SeekBarHint">
+        <attr name="popupLayout" format="reference" />
         <attr name="popupWidth" format="dimension" />
         <attr name="popupOffset" format="dimension" />
         <attr name="popupStyle" format="enum">

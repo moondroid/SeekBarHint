@@ -16,6 +16,7 @@
         android:layout_gravity="center"
         android:max="1000"
         android:rotation="0"
+        hint:popupOffset="4dp"
         hint:popupStyle="follow" />
 
     <it.moondroid.seekbarhint.library.SeekBarHint
@@ -26,6 +27,7 @@
         android:max="1000"
         android:rotation="90"
         hint:popupAlwaysShown="true"
+        hint:popupLayout="@layout/custom_seekbar_hint_popup"
         hint:popupStyle="follow" />
 
 </FrameLayout>

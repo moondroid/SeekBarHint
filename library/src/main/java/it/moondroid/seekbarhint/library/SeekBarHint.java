@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.support.annotation.IntDef;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -24,6 +25,7 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
     private View mPopupView;
     private TextView mPopupTextView;
 
+    private int mPopupLayout;
     private int mPopupWidth;
     private int mPopupOffset;
     private boolean mPopupAlwaysShown;
@@ -59,6 +61,7 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
 
     private void init(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SeekBarHint);
+        mPopupLayout = a.getResourceId(R.styleable.SeekBarHint_popupLayout, R.layout.seekbar_hint_popup);
         mPopupWidth = (int) a.getDimension(R.styleable.SeekBarHint_popupWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
         mPopupOffset = (int) a.getDimension(R.styleable.SeekBarHint_popupOffset, 0);
         mPopupStyle = a.getInt(R.styleable.SeekBarHint_popupStyle, POPUP_FOLLOW);
@@ -77,7 +80,7 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
         }
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mPopupView = inflater.inflate(R.layout.seekbar_hint_popup, null);
+        mPopupView = inflater.inflate(mPopupLayout, null);
         mPopupView.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
                 MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
         mPopupTextView = (TextView) mPopupView.findViewById(android.R.id.text1);
@@ -121,6 +124,17 @@ public class SeekBarHint extends SeekBar implements SeekBar.OnSeekBarChangeListe
     ///////////////////////////////////////////////////////////////////////////
     // Public api
     ///////////////////////////////////////////////////////////////////////////
+
+    @LayoutRes
+    public int getPopupLayout() {
+        return mPopupLayout;
+    }
+
+    public void setPopupLayout(@LayoutRes int layout) {
+        this.mPopupLayout = layout;
+        if (mPopup != null) mPopup.dismiss();
+        initHintPopup();
+    }
 
     @PopupStyle
     public int getPopupStyle() {
